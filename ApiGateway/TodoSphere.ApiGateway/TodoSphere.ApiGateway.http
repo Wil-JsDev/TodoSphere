@@ -1,0 +1,6 @@
+@TodoSphere.ApiGateway_HostAddress = http://localhost:5005
+
+GET {{TodoSphere.ApiGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
