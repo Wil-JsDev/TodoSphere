@@ -8,21 +8,22 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${API_GATEWAY_STAGE}
       - ASPNETCORE_URLS=${API_GATEWAY_URLS}
-      depends_on:
-        - users-api
-    
-    users-api:
-      container_name: users-api
-      build:
-        context: .
-        dockerfile: ./Services/Users/Dockerfile
-      ports:
-        - ${USER_SERVICE_PORT}:80
-      environment:
-        - ASPNETCORE_ENVIRONMENT=${USER_SERVICE_STAGE}
-        - ASPNETCORE_URLS=http:${USER_SERVICE_URLS}
-      depends_on:
-        - users-db
+    depends_on:
+      - users-api
+      - grafana-agent
+      
+      users-api:
+        container_name: users-api
+        build:
+          context: .
+          dockerfile: ./Services/Users/Dockerfile
+        ports:
+          - ${USER_SERVICE_PORT}:80
+        environment:
+          - ASPNETCORE_ENVIRONMENT=${USER_SERVICE_STAGE}
+          - ASPNETCORE_URLS=http:${USER_SERVICE_URLS}
+        depends_on:
+          - users-db
   
   users-db:
     image: mongo:8.0.14-noble
@@ -39,6 +40,7 @@ services:
   rabbitmq:
     container_name: rabbitmq
     image: ${RABBITMQ_IMAGE}
+    restart: always
     ports:
       - "${RABBITMQ_PORT}:5672"
       - "${RABBITMQ_MANAGEMENT_PORT}:15672"
@@ -47,6 +49,27 @@ services:
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+  
+  grafana:
+    image: ${GRAFANA_IMAGE}
+    container_name: grafana
+    ports:
+      - "${GRAFANA_PORT}:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+  
+  grafana-agent:
+    image: grafana/agent:v0.27.0
+    ports:
+      - "${GRAFANA_AGENT_PORT_GRPC}:4317"
+      - "${GRAFANA_AGENT_PORT_HTTP}:4318"
+    volumes:
+      - ./grafana-agent.yaml:/etc/agent/grafana-agent.yaml
+    command:
+      - "--config.file=/etc/agent/grafana-agent.yaml"
+    depends_on:
+      - grafana
 
 volumes:
   mongo_data:
