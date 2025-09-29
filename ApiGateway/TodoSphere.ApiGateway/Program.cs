@@ -9,7 +9,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Reverse Proxy
 builder.Services.AddReverseProxyConfiguration(builder.Configuration);
+
+// Open Telemetry Metrics + Traces
+builder.Services.AddOpenTelemetry(builder.Configuration);
 
 var app = builder.Build();
 
