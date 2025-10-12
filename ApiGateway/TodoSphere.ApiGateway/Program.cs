@@ -1,3 +1,4 @@
+using Serilog;
 using TodoSphere.ApiGateway.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,15 +10,30 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+// Logging 
+builder.AddLoggingOpenTelemetry(builder.Configuration);
+
 // Reverse Proxy
 builder.Services.AddReverseProxyConfiguration(builder.Configuration);
 
-// Open Telemetry Metrics + Traces
-builder.Services.AddOpenTelemetry(builder.Configuration);
+// Open Telemetry Metrics
+builder.Services.AddOpenTelemetryMetrics(builder.Configuration);
+
+// Open Telemetry Tracing
+builder.Services.AddOpenTelemetryTracing(builder.Configuration);
+
+// Logging
+builder.Services.AddOpenTelemetryLogging(builder.Configuration);
+
+// Loki + Serilog
+builder.AddSerilogWithLoki();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -26,11 +42,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseRouting();
+// Exponer el endpoint para Prometheus
+app.MapPrometheusScrapingEndpoint("/metrics");
 
 app.MapReverseProxy();
 

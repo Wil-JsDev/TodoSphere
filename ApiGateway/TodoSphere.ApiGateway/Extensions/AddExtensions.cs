@@ -1,3 +1,5 @@
+using Grafana.OpenTelemetry;
+using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -13,26 +15,55 @@ public static class AddExtensions
             .LoadFromConfig(configuration.GetSection("ReverseProxy"));
     }
 
-    // Open Telemetry Metrics + Traces
-    public static void AddOpenTelemetry(this IServiceCollection services, IConfiguration configuration)
+    public static void AddOpenTelemetryMetrics(this IServiceCollection services, IConfiguration configuration)
     {
         var serviceName = configuration["OpenTelemetry:ServiceName"] ?? "ApiGateway";
-        var otlpEndpoint = configuration["OpenTelemetry:OtlExporter:Endpoint"] ?? "http://grafana-agent:4317";
 
         services.AddOpenTelemetry()
             .WithMetrics(metrics =>
             {
-                metrics.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
+                metrics.SetResourceBuilder(
+                    ResourceBuilder.CreateDefault()
+                        .AddService(serviceName));
+
                 metrics.AddAspNetCoreInstrumentation();
                 metrics.AddHttpClientInstrumentation();
-                metrics.AddOtlpExporter(opt => { opt.Endpoint = new Uri(otlpEndpoint); });
-            })
-            .WithTracing(tracing =>
-            {
-                tracing.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName));
-                tracing.AddAspNetCoreInstrumentation();
-                tracing.AddHttpClientInstrumentation();
-                tracing.AddOtlpExporter(opt => { opt.Endpoint = new Uri(otlpEndpoint); });
+                metrics.AddRuntimeInstrumentation();
+
+                // Exportador Prometheus (para que Prometheus lo pueda scrapear)
+                metrics.AddPrometheusExporter();
             });
+    }
+
+
+    public static void AddOpenTelemetryTracing(this IServiceCollection services, IConfiguration configuration)
+    {
+        
+        services.AddOpenTelemetry()
+            .WithTracing(configure =>
+            {
+                configure.UseGrafana()
+                    .AddConsoleExporter();
+            });
+    }
+    
+    public static void AddOpenTelemetryLogging(this IServiceCollection services, IConfiguration configuration)
+    {
+        var serviceName = configuration["OpenTelemetry:ServiceName"] ?? "ApiGateway";
+
+        services.AddLogging(logging =>
+        {
+            logging.ClearProviders(); 
+            logging.AddOpenTelemetry(options =>
+            {
+                options.SetResourceBuilder(
+                    OpenTelemetry.Resources.ResourceBuilder.CreateDefault()
+                        .AddService(serviceName));
+
+                options.UseGrafana(); 
+                options.AddConsoleExporter(); 
+                options.AddOtlpExporter(opt => { opt.Endpoint = new Uri("http://loki:3100"); });
+            });
+        });
     }
 }

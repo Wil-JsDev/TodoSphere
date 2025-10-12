@@ -1,8 +1,0 @@
-server:
-  log_level: info
-
-metrics:
-  wal_directory: /tmp/wal
-
-traces:
-# vacío
