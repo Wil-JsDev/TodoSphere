@@ -14,6 +14,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.Users.Application", "Services/Users/TodoSphere.Users.Application/TodoSphere.Users.Application.csproj", "{B2FF2D7D-56DF-4988-A34C-654D9C9D67CD}"
 EndProject
 
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.Auth.Domain", "Services\Auth\Domain\TodoSphere.Auth.Domain\TodoSphere.Auth.Domain.csproj", "{092A9DEE-841E-4F84-AAE9-C85F46DD763B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.Auth.API", "Services\Auth\API\TodoSphere.Auth.API\TodoSphere.Auth.API.csproj", "{2D93093C-293C-4036-BEA4-8AD746FD4A50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.Auth.Infrastructure.Persistence", "Services\Auth\Infrastructure\TodoSphere.Auth.Infrastructure.Persistence\TodoSphere.Auth.Infrastructure.Persistence.csproj", "{2BCA7BEB-2EDE-4AC6-AF84-A23A99C7D4FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.Auth.Application", "Services\Auth\Application\TodoSphere.Auth.Application\TodoSphere.Auth.Application.csproj", "{A6D47AAB-18B4-4D8E-AD69-16EDFA0A3AE4}"
+EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,5 +49,21 @@ Global
 		{B2FF2D7D-56DF-4988-A34C-654D9C9D67CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2FF2D7D-56DF-4988-A34C-654D9C9D67CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2FF2D7D-56DF-4988-A34C-654D9C9D67CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{092A9DEE-841E-4F84-AAE9-C85F46DD763B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{092A9DEE-841E-4F84-AAE9-C85F46DD763B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{092A9DEE-841E-4F84-AAE9-C85F46DD763B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{092A9DEE-841E-4F84-AAE9-C85F46DD763B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D93093C-293C-4036-BEA4-8AD746FD4A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D93093C-293C-4036-BEA4-8AD746FD4A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D93093C-293C-4036-BEA4-8AD746FD4A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D93093C-293C-4036-BEA4-8AD746FD4A50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BCA7BEB-2EDE-4AC6-AF84-A23A99C7D4FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCA7BEB-2EDE-4AC6-AF84-A23A99C7D4FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCA7BEB-2EDE-4AC6-AF84-A23A99C7D4FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCA7BEB-2EDE-4AC6-AF84-A23A99C7D4FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6D47AAB-18B4-4D8E-AD69-16EDFA0A3AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D47AAB-18B4-4D8E-AD69-16EDFA0A3AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D47AAB-18B4-4D8E-AD69-16EDFA0A3AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D47AAB-18B4-4D8E-AD69-16EDFA0A3AE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
