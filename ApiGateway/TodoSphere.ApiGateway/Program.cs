@@ -14,9 +14,6 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
 
-// Logging 
-builder.AddLoggingOpenTelemetry(builder.Configuration);
-
 // Reverse Proxy
 builder.Services.AddReverseProxyConfiguration(builder.Configuration);
 
@@ -26,8 +23,6 @@ builder.Services.AddOpenTelemetryMetrics(builder.Configuration);
 // Open Telemetry Tracing
 builder.Services.AddOpenTelemetryTracing(builder.Configuration);
 
-// Logging
-builder.Services.AddOpenTelemetryLogging(builder.Configuration);
 
 // Loki + Serilog
 builder.AddSerilogWithLoki();
