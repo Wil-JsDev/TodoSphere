@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using TodoSphere.Users.Application.Interfaces.Common;
 using TodoSphere.Users.Application.Interfaces.Repositories;
 using TodoSphere.Users.Infrastructure.Context;
 using TodoSphere.Users.Infrastructure.Repositories;
+using TodoSphere.Users.Infrastructure.Repositories.Common;
 
 namespace TodoSphere.Users.Infrastructure;
 
@@ -30,6 +32,7 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IRolesRepository, RolesRepository>();
+        services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
         #endregion
 
