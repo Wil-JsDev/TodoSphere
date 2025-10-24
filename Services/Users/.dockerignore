@@ -1,0 +1,5 @@
+.git/
+bin/
+obj/
+#**/*.*proj.user
+./Services/Users/*.*proj.user
