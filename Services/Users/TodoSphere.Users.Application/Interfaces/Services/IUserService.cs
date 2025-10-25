@@ -12,8 +12,4 @@ public interface IUserService
 
     Task<ResultT<PagedResult<UserDtOs>>> GetPagedUsersAsync(PaginationParameter paginationParameter,
         CancellationToken cancellationToken = default);
-
-    Task<Result> AssignRoleToUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken = default);
-
-    Task<Result> RemoveRoleFromUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken = default);
 }

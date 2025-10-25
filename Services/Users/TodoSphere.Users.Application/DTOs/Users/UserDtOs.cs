@@ -8,12 +8,5 @@ public sealed record UserDtOs(
     string Address,
     string City,
     string Country,
-    DateTime CreatedAt,
-    IEnumerable<UserRoleInfoDtOs> Roles
-);
-
-public sealed record UserRoleInfoDtOs(
-    Guid RoleId,
-    string Name,
-    DateTime AssignedAt
+    DateTime CreatedAt
 );
