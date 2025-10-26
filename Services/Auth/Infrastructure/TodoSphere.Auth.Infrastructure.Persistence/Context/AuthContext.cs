@@ -10,6 +10,8 @@ public class AuthContext(DbContextOptions<AuthContext> options) : DbContext(opti
     public DbSet<User> Users { get; set; }
 
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    
+    public DbSet<Roles> Roles { get; set; }
 
     #endregion
 
@@ -25,6 +27,9 @@ public class AuthContext(DbContextOptions<AuthContext> options) : DbContext(opti
         modelBuilder.Entity<RefreshToken>()
             .ToTable("RefreshTokens");
 
+        modelBuilder.Entity<Roles>()
+            .ToTable("Roles");
+
         #endregion
 
         #region PKs
@@ -37,6 +42,10 @@ public class AuthContext(DbContextOptions<AuthContext> options) : DbContext(opti
             .HasKey(rt => rt.RefreshTokenId)
             .HasName("PK_RefreshTokens");
 
+        modelBuilder.Entity<Roles>()
+            .HasKey(r => r.RoleId)
+            .HasName("PK_Roles");
+
         #endregion
 
         #region Relationships
@@ -48,6 +57,14 @@ public class AuthContext(DbContextOptions<AuthContext> options) : DbContext(opti
             .IsRequired()
             .HasConstraintName("FK_RefreshTokens_Users")
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<User>()
+            .HasOne(us => us.Role)
+            .WithMany(r => r.Users)
+            .HasForeignKey(us => us.RoleId)
+            .IsRequired()
+            .HasConstraintName("FK_Users_Roles")
+            .OnDelete(DeleteBehavior.Restrict);
 
         #endregion
 
@@ -69,10 +86,6 @@ public class AuthContext(DbContextOptions<AuthContext> options) : DbContext(opti
             entity.Property(u => u.PasswordHash)
                 .IsRequired()
                 .HasMaxLength(200);
-
-            entity.Property(u => u.Roles)
-                .IsRequired()
-                .HasMaxLength(50);
 
             entity.Property(us => us.IsEmailVerified)
                 .IsRequired()
@@ -98,6 +111,17 @@ public class AuthContext(DbContextOptions<AuthContext> options) : DbContext(opti
 
             entity.Property(rt => rt.RevokedAt)
                 .IsRequired(false);
+        });
+
+        #endregion
+
+        #region Roles
+
+        modelBuilder.Entity<Roles>(entity =>
+        {
+            entity.Property(r => r.Name)
+                .IsRequired()
+                .HasMaxLength(50);
         });
 
         #endregion
