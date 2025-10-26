@@ -15,8 +15,6 @@ public sealed class TodoSphereUserContext(DbContextOptions<TodoSphereUserContext
 
     public DbSet<User> Users { get; set; }
 
-    public DbSet<Role> Roles { get; set; }
-
     #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,8 +24,6 @@ public sealed class TodoSphereUserContext(DbContextOptions<TodoSphereUserContext
         #region Collections
 
         modelBuilder.Entity<User>().ToCollection("Users");
-
-        modelBuilder.Entity<Role>().ToCollection("Roles");
 
         #endregion
 
@@ -39,26 +35,6 @@ public sealed class TodoSphereUserContext(DbContextOptions<TodoSphereUserContext
         modelBuilder.Entity<User>()
             .Property(u => u.UserId)
             .HasElementName("_id");
-
-        modelBuilder.Entity<Role>()
-            .HasKey(r => r.RoleId);
-
-        modelBuilder.Entity<Role>()
-            .Property(r => r.RoleId)
-            .HasElementName("_id");
-
-        #endregion
-
-        #region Roles
-
-        modelBuilder.Entity<Role>(property =>
-        {
-            property.Property(rol => rol.CreatedAt)
-                .IsRequired();
-
-            property.Property(rol => rol.UpdatedAt)
-                .IsRequired(false);
-        });
 
         #endregion
 
@@ -72,12 +48,12 @@ public sealed class TodoSphereUserContext(DbContextOptions<TodoSphereUserContext
             property.Property(user => user.UpdatedAt)
                 .IsRequired(false);
 
-            property.OwnsMany(u => u.Roles, builder =>
-            {
-                builder.Property(roleInfo => roleInfo.RoleId).HasElementName("roleId");
-                builder.Property(roleInfo => roleInfo.RoleName).HasElementName("name");
-                builder.Property(roleInfo => roleInfo.AssignedAt).HasElementName("assignedAt");
-            });
+            // property.OwnsMany(u => u.Roles, builder =>
+            // {
+            //     builder.Property(roleInfo => roleInfo.RoleId).HasElementName("roleId");
+            //     builder.Property(roleInfo => roleInfo.RoleName).HasElementName("name");
+            //     builder.Property(roleInfo => roleInfo.AssignedAt).HasElementName("assignedAt");
+            // });
         });
 
         #endregion

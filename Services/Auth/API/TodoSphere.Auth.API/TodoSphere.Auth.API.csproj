@@ -8,16 +8,15 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.21">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Application\TodoSphere.Auth.Application\TodoSphere.Auth.Application.csproj" />
-      <ProjectReference Include="..\..\Infrastructure\TodoSphere.Auth.Infrastructure.Persistence\TodoSphere.Auth.Infrastructure.Persistence.csproj" />
-      <ProjectReference Include="..\TodoSphere.Auth.Infrastructure.Persistence\TodoSphere.Auth.Infrastructure.Persistence.csproj" />
+        <ProjectReference Include="..\..\Application\TodoSphere.Auth.Application\TodoSphere.Auth.Application.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\TodoSphere.Auth.Infrastructure.Persistence\TodoSphere.Auth.Infrastructure.Persistence.csproj"/>
     </ItemGroup>
 
 </Project>

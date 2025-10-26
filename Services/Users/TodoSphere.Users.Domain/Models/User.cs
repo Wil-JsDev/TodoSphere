@@ -19,7 +19,5 @@ public sealed class User : CreationAndUpdateDate
     public required string City { get; set; }
 
     public required string Country { get; set; }
-
-    // JSON 
-    public ICollection<UserRoleInfo> Roles { get; set; } = new List<UserRoleInfo>();
+    
 }

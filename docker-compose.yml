@@ -23,7 +23,7 @@ services:
       - ${USER_SERVICE_PORT}:80
     environment:
       - ASPNETCORE_ENVIRONMENT=${USER_SERVICE_STAGE}
-      - ASPNETCORE_URLS=http:${USER_SERVICE_URLS}
+      - ASPNETCORE_URLS=${USER_SERVICE_URLS}
     depends_on:
       - users-db
 

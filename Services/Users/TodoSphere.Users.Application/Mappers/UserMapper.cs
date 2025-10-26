@@ -15,13 +15,7 @@ public static class UserMapper
             user.Address,
             user.City,
             user.Country,
-            user.CreatedAt,
-            Roles: user.Roles.Select(role => new UserRoleInfoDtOs(
-                role.RoleId,
-                role.RoleName,
-                role.AssignedAt
-            )).ToList()
-        );
+            user.CreatedAt);
     }
 
     public static UserGeneralDtOs ToGeneralDto(User user)

@@ -33,14 +33,6 @@ public class UserService(IUnitOfWork unitOfWork) : IUserService
             createUser.Country
         );
 
-        var defaultRole = await unitOfWork.Roles.GetByNameAsync(Roles.User.ToString(), cancellationToken);
-
-        if (defaultRole is null)
-            return ResultT<UserDtOs>.Failure(Error.Failure("503",
-                "Service configuration error: Default role not found."));
-
-        user.Roles.Add(UserRoleInfoFactory.Create(defaultRole.RoleId, defaultRole.Name));
-
         await unitOfWork.Users.AddAsync(user, cancellationToken);
 
         await unitOfWork.CompleteAsync(cancellationToken);
@@ -73,51 +65,5 @@ public class UserService(IUnitOfWork unitOfWork) : IUserService
         };
 
         return ResultT<PagedResult<UserDtOs>>.Success(pagedResponseDto);
-    }
-
-    public async Task<Result> AssignRoleToUserAsync(Guid userId, Guid roleId,
-        CancellationToken cancellationToken = default)
-    {
-        var user = await unitOfWork.Users.GetByIdAsync(userId, cancellationToken);
-        if (user is null)
-            return Result.Failure(Error.NotFound("404", "User not found"));
-
-        var role = await unitOfWork.Roles.GetByIdAsync(roleId, cancellationToken);
-        if (role is null)
-            return Result.Failure(Error.NotFound("404", "Role not found"));
-
-        if (user.Roles.Any(r => r.RoleId == roleId))
-            return Result.Failure(Error.Conflict("409", "User already has this role assigned"));
-
-        var newRoleInfo = UserRoleInfoFactory.Create(roleId, role.Name);
-
-        user.Roles.Add(newRoleInfo);
-
-        await unitOfWork.CompleteAsync(cancellationToken);
-
-        return Result.Success();
-    }
-
-    public async Task<Result> RemoveRoleFromUserAsync(Guid userId, Guid roleId,
-        CancellationToken cancellationToken = default)
-    {
-        var user = await unitOfWork.Users.GetByIdAsync(userId, cancellationToken);
-        if (user is null)
-            return Result.Failure(Error.NotFound("404", "User not found"));
-
-        var role = await unitOfWork.Roles.GetByIdAsync(roleId, cancellationToken);
-        if (role is null)
-            return Result.Failure(Error.NotFound("404", "Role not found"));
-
-        var roleInfo = user.Roles.FirstOrDefault(r => r.RoleId == roleId);
-
-        if (roleInfo is null)
-            return Result.Failure(Error.NotFound("404", "User does not have this role assigned"));
-
-        user.Roles.Remove(roleInfo);
-
-        await unitOfWork.CompleteAsync(cancellationToken);
-
-        return Result.Success();
     }
 }
