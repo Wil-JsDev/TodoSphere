@@ -17,6 +17,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Application\TodoSphere.Auth.Application\TodoSphere.Auth.Application.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\TodoSphere.Auth.Infrastructure.Persistence\TodoSphere.Auth.Infrastructure.Persistence.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\TodoSphere.Auth.Infrastructure.Shared\TodoSphere.Auth.Infrastructure.Shared.csproj" />
     </ItemGroup>
 
 </Project>
