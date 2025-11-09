@@ -32,6 +32,11 @@ public class Repository<TEntity>(AuthContext context) : IRepository<TEntity>
         _dbSet.Update(entity);
     }
 
+    public void Add(TEntity entity)
+    {
+        _dbSet.Add(entity); 
+    }
+
     public virtual void Remove(TEntity entity)
     {
         _dbSet.Remove(entity);
