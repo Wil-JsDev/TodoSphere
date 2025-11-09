@@ -76,4 +76,13 @@ public class Error
     /// <returns>An instance of <see cref="Error"/> representing a forbidden operation.</returns
     public static Error Forbidden(string code, string description) =>
         new Error(code, description, ErrorType.Forbidden);
+
+    /// <summary>
+    /// Creates an instance of the <see cref="Error"/> class for an unauthorized action.
+    /// </summary>
+    /// <param name="code">A unique identifier for the unauthorized error.</param>
+    /// <param name="description">A description of the unauthorized error.</param>
+    /// <returns>A new instance of the <see cref="Error"/> class representing an unauthorized error.</returns>
+    public static Error Unauthorized(string code, string description) =>
+        new Error(code, description, ErrorType.Unauthorized);
 }
