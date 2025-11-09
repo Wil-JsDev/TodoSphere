@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy csproj and restore as distinct layers
 COPY TodoSphere.sln ./
-COPY ApiGateway/TodoSphere.ApiGateway/TodoSphere.ApiGateway.csproj ./ApiGateway/
+COPY ApiGateway/src/ApiGateway/TodoSphere.ApiGateway/TodoSphere.ApiGateway.csproj ./ApiGateway/
 
 WORKDIR /app/ApiGateway
 
