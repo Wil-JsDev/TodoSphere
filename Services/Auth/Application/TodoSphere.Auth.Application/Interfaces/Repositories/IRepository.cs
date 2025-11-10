@@ -12,5 +12,7 @@ public interface IRepository<TEntity> where TEntity : class
 
     void Update(TEntity entity);
 
+    void Add(TEntity entity);
+
     void Remove(TEntity entity);
 }

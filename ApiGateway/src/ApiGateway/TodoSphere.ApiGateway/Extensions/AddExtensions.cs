@@ -29,12 +29,10 @@ public static class AddExtensions
                 metrics.AddHttpClientInstrumentation();
                 metrics.AddRuntimeInstrumentation();
 
-                // Exportador Prometheus (para que Prometheus lo pueda scrapear)
                 metrics.AddPrometheusExporter();
             });
     }
 
-    // SE QUEDA (Configuración de Tracing para Grafana)
     public static void AddOpenTelemetryTracing(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddOpenTelemetry()
