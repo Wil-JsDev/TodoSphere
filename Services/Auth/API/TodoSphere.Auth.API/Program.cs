@@ -1,3 +1,4 @@
+using TodoSphere.Auth.API.Extensions;
 using TodoSphere.Auth.Application;
 using TodoSphere.Auth.Infrastructure.Shared;
 using TodoSphere.Auth.Persistence;
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddInfrastructureShared(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddSwaggerExtension();
 
 var app = builder.Build();
 
@@ -28,6 +30,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UserSwaggerExtension();
 
 app.MapControllers();
 
