@@ -12,31 +12,23 @@ public class RefreshTokenRepository(AuthContext context) : Repository<RefreshTok
         return await Context.RefreshTokens.FirstOrDefaultAsync(x => x.Token == token, cancellationToken);
     }
 
-    public async Task<bool> ExistsByTokenAsync(string token, CancellationToken cancellationToken = default)
+    public async Task<List<RefreshToken>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
     {
-        return await ValidateAsync(x => x.Token == token, cancellationToken);
+        return await Context.RefreshTokens
+            .AsNoTracking()
+            .Where(x => x.UserId == userId)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<bool> DeleteByTokenAsync(string token, CancellationToken cancellationToken = default)
     {
         var refreshToken = await GetByTokenAsync(token, cancellationToken);
-        if (refreshToken == null)
+        if (refreshToken is null)
         {
             return false;
         }
 
-        Context.RefreshTokens.Remove(refreshToken);
-        await Context.SaveChangesAsync(cancellationToken);
+        Remove(refreshToken);
         return true;
-    }
-
-    public async Task<bool> IsExpiredAsync(string token, CancellationToken cancellationToken = default)
-    {
-        return await ValidateAsync(x => x.Token == token && x.ExpiresAt <= DateTime.UtcNow, cancellationToken);
-    }
-
-    public async Task<bool> IsRevokedAsync(string token, CancellationToken cancellationToken = default)
-    {
-        return await ValidateAsync(x => x.Token == token && x.RevokedAt != null, cancellationToken);
     }
 }

@@ -30,4 +30,8 @@
         </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Infrastructure\TodoSphere.ApiGateway.Infrastructure\TodoSphere.ApiGateway.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

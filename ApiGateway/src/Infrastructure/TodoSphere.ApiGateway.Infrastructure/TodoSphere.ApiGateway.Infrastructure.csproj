@@ -11,13 +11,11 @@
       <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.1" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
       <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.12.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Application\TodoSphere.Auth.Application\TodoSphere.Auth.Application.csproj" />
-      <ProjectReference Include="..\..\Domain\TodoSphere.Auth.Domain\TodoSphere.Auth.Domain.csproj" />
+      <ProjectReference Include="..\..\Domain\TodoSphere.ApiGateway.Domain\TodoSphere.ApiGateway.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.ApiGateway", "ApiGateway/TodoSphere.ApiGateway/TodoSphere.ApiGateway.csproj", "{2196AE9D-80C8-4AEA-BE37-6E19C9E8BF44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.ApiGateway", "ApiGateway/src/ApiGateway/TodoSphere.ApiGateway/TodoSphere.ApiGateway.csproj", "{2196AE9D-80C8-4AEA-BE37-6E19C9E8BF44}"
 EndProject
 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.Users.API", "Services/Users/TodoSphere.Users.API/TodoSphere.Users.API.csproj", "{3481504E-9ACC-4842-8681-86BE162DE935}"
@@ -23,6 +23,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.Auth.Application", "Services\Auth\Application\TodoSphere.Auth.Application\TodoSphere.Auth.Application.csproj", "{A6D47AAB-18B4-4D8E-AD69-16EDFA0A3AE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.Auth.Infrastructure.Shared", "Services\Auth\Infrastructure\TodoSphere.Auth.Infrastructure.Shared\TodoSphere.Auth.Infrastructure.Shared.csproj", "{CECE0B58-FC90-4155-AD50-7571D528EEAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.ApiGateway.Infrastructure", "ApiGateway\src\Infrastructure\TodoSphere.ApiGateway.Infrastructure\TodoSphere.ApiGateway.Infrastructure.csproj", "{331AEF60-AD76-4078-AB28-A44566DE51F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoSphere.ApiGateway.Domain", "ApiGateway\src\Domain\TodoSphere.ApiGateway.Domain\TodoSphere.ApiGateway.Domain.csproj", "{AB88D8D2-77E5-4E97-BACC-F5BF2981C432}"
 EndProject
 
 Global
@@ -71,5 +75,13 @@ Global
 		{CECE0B58-FC90-4155-AD50-7571D528EEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CECE0B58-FC90-4155-AD50-7571D528EEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CECE0B58-FC90-4155-AD50-7571D528EEAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{331AEF60-AD76-4078-AB28-A44566DE51F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{331AEF60-AD76-4078-AB28-A44566DE51F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{331AEF60-AD76-4078-AB28-A44566DE51F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{331AEF60-AD76-4078-AB28-A44566DE51F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB88D8D2-77E5-4E97-BACC-F5BF2981C432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB88D8D2-77E5-4E97-BACC-F5BF2981C432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB88D8D2-77E5-4E97-BACC-F5BF2981C432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB88D8D2-77E5-4E97-BACC-F5BF2981C432}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
