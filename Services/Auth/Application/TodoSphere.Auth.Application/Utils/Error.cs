@@ -73,7 +73,7 @@ public class Error
     /// </summary>
     /// <param name="code">The code identifying the forbidden error.</param>
     /// <param name="description">A description of why the operation is forbidden.</param>
-    /// <returns>An instance of <see cref="Error"/> representing a forbidden operation.</returns
+    /// <returns>An instance of <see cref="Error"/> representing a forbidden operation.</returns>
     public static Error Forbidden(string code, string description) =>
         new Error(code, description, ErrorType.Forbidden);
 
@@ -85,4 +85,13 @@ public class Error
     /// <returns>A new instance of the <see cref="Error"/> class representing an unauthorized error.</returns>
     public static Error Unauthorized(string code, string description) =>
         new Error(code, description, ErrorType.Unauthorized);
+
+    /// <summary>
+    /// Creates an internal server error (HTTP 500) instance.
+    /// </summary>
+    /// <param name="code">The code identifying the server error (e.g., "500").</param>
+    /// <param name="description">A description of the server error.</param>
+    /// <returns>An instance of <see cref="Error"/> representing an internal server error.</returns>
+    public static Error InternalServerError(string code, string description) =>
+        new Error(code, description, ErrorType.InternalServerError);
 }
