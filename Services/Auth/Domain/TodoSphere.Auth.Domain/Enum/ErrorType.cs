@@ -6,5 +6,6 @@ public enum ErrorType
     Conflict,
     BadRequest,
     Unauthorized,
-    Forbidden
+    Forbidden,
+    InternalServerError
 }

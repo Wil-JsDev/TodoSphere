@@ -1,14 +1,17 @@
 ﻿using System.Text;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
+using RmqFactory = RabbitMQ.Client.ConnectionFactory;
 using TodoSphere.Auth.Application.Interfaces.Services;
 using TodoSphere.Auth.Application.Utils;
 using TodoSphere.Auth.Domain.Settings;
+using TodoSphere.Auth.Infrastructure.Shared.Messaging;
 using TodoSphere.Auth.Infrastructure.Shared.Services.Auth;
 
 namespace TodoSphere.Auth.Infrastructure.Shared;
@@ -23,6 +26,26 @@ public static class DependencyInjection
 
         services.AddAuthenticationBearer(configuration);
     }
+
+    public static void AddRabbitMqPublisher(this WebApplicationBuilder builder, IConfiguration configuration)
+    {
+        builder.Services.AddSingleton<IConnection>(sp =>
+        {
+            var factory = new RmqFactory
+            {
+                HostName = configuration["RabbitMq:HostName"],
+                UserName = configuration["RabbitMq:UserName"],
+                Password = configuration["RabbitMq:Password"],
+                Port = int.Parse(configuration["RabbitMq:Port"] ?? string.Empty)
+            };
+
+            return factory.CreateConnection();
+        });
+
+        builder.Services.AddSingleton<IMessagePublisher, RabbitMqPublisher>();
+    }
+
+
     private static void AddAuthenticationBearer(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthentication(options =>

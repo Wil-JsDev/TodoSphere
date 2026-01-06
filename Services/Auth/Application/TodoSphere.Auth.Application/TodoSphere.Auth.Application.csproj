@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Shared\TodoSphere.Contracts\TodoSphere.Contracts.csproj" />
       <ProjectReference Include="..\..\Domain\TodoSphere.Auth.Domain\TodoSphere.Auth.Domain.csproj" />
     </ItemGroup>
 

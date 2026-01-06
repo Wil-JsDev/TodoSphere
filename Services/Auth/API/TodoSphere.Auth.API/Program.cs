@@ -17,6 +17,8 @@ builder.Services.AddInfrastructureShared(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddSwaggerExtension();
 
+builder.AddRabbitMqPublisher(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
