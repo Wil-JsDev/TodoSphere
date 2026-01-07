@@ -1,6 +1,7 @@
-.git/
-./TodoSphere.ApiGateway/.classpath
-bin/ 
-obj/
-#**/*.*proj.user
-./TodoSphere.ApiGateway/*.*proj.user
+**/.dockerignore
+**/.env
+**/.git
+**/.vscode
+**/bin
+**/obj
+Dockerfile

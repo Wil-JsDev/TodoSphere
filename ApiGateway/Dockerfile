@@ -3,27 +3,25 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY TodoSphere.sln ./
-COPY ApiGateway/src/ApiGateway/TodoSphere.ApiGateway/TodoSphere.ApiGateway.csproj ./ApiGateway/
+COPY src/ApiGateway/*.csproj src/ApiGateway/
+COPY src/Domain/*.csproj src/Domain/
+COPY src/Infrastructure/*.csproj src/Infrastructure/
 
-WORKDIR /app/ApiGateway
+RUN dotnet restore src/ApiGateway/TodoSphere.ApiGateway.csproj
 
-RUN dotnet restore
+COPY src/ src/
 
-# Copy everything else and build
-COPY . .
-
-# Publish the application
-
-RUN dotnet publish ApiGateway/TodoSphere.ApiGateway/TodoSphere.ApiGateway.csproj -c Release -o /app/publish
+RUN dotnet publish src/ApiGateway/TodoSphere.ApiGateway.csproj \
+    -c Release \
+    -o /app/publish \
+    --no-restore
 
 # 2 Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
-
 WORKDIR /app
+USER app
 
 COPY --from=build /app/publish .
 
-EXPOSE 80
-
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "TodoSphere.ApiGateway.dll"]
