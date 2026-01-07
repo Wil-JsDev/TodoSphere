@@ -1,5 +1,7 @@
-.git/
-bin/
-obj/
-#**/*.*proj.user
-./Services/Users/*.*proj.user
+Dockerfile
+**/.dockerignore
+**/.env
+**/.git
+**/.vscode
+**/bin
+**/obj
